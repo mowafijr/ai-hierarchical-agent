@@ -32,6 +32,7 @@ class Planner:
         self.tool_schemas = tool_schemas
 
     def create_plan(self, user_input: str, memory_facts: dict):
+        memory_json = json.dumps(memory_facts or {})
         system_prompt = f"""
 You are a subgoal decomposition planner.
 
@@ -46,7 +47,7 @@ OUTPUT STRICT JSON ONLY:
     "steps": [
       {{
         "action": "tool_name OR respond",
-        "input": {{...}},
+        "input": {{}},
         "goal": "what this step achieves",
         "response": "final answer"   // only for respond action
       }}
@@ -66,11 +67,11 @@ TOOLS:
 {self.tool_schemas}
 
 Memory:
-{json.dumps(memory_facts or {{}})}
+{memory_json}
 """
         messages = [
-            {{"role": "system", "content": system_prompt}},
-            {{"role": "user", "content": user_input}}
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_input}
         ]
         try:
             raw = self.llm.chat(messages, temperature=0.2, max_tokens=700)
