@@ -1,0 +1,25 @@
+# Environment
+*.pyc
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Project-specific
+config/settings.json
+logs/
+notes/
+memory/provenance.jsonl
+memory/memory.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
