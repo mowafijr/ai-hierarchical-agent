@@ -25,6 +25,7 @@ class Agent:
             retries_left = self.max_subgoal_retries
             success = False
             failed_step_record = None
+            sg_trace = []  # Initialize here to prevent undefined variable errors
 
             while retries_left >= 0 and not success:
                 sg_trace = []
